@@ -78,11 +78,11 @@ client.on("message", async message => {
   }
 
   if (command === "flip") {
-    if (args.length == 0 || args.length == 1) {
-      errorMessage(message, ":x: Too few arguments", "Usage: ++flip <min-margin> <max-margin>\n\n(-1 max margin is infinite)")
+    if (args.length == 0) {
+      errorMessage(message, ":x: Too few arguments", "Usage: ++flip <min-margin> *<max-margin>\n\n* *max margin is optional*")
       return;
     } else if (args.length > 2) {
-      errorMessage(message, ":x: Too many arguments ", "Usage: ++flip <min-margin> <max-margin>\n\n(-1 max margin is infinite)")
+      errorMessage(message, ":x: Too many arguments ", "Usage: ++flip <min-margin> <max-margin>\n\n* *max margin is optional*")
     }
     var tempItems = [];
     var items = [];
@@ -92,15 +92,18 @@ client.on("message", async message => {
     for (item in values) {
       item = values[item];
       var margin = item.sell_average - item.buy_average;
-      if (args[1] == -1) {
+      if (args.length == 1) {
         if (margin > args[0] && item.sell_average != 0 && item.buy_average != 0) {
           count++;
           tempItems.push(item);
         }
-      } else if (margin > args[0] && margin < args[1] && item.sell_average != 0 && item.buy_average != 0) {
-        count++;
-        tempItems.push(item);
+      } else if (args.length == 2) {
+          if (margin > args[0] && margin < args[1] && item.sell_average != 0 && item.buy_average != 0) {
+            count++;
+            tempItems.push(item);
+        } 
       }
+
 
       
     }
@@ -121,7 +124,7 @@ client.on("message", async message => {
       itemList += "**" + items[i].name + " (" + items[i].id + "):** " + (items[i].sell_average - items[i].buy_average) + "\n\n";
     }
 
-    successMessage(message, "Yeet", itemList);
+    successMessage(message, "Flips", itemList);
     console.log("Found " + count + " total items.")
 
 
@@ -136,7 +139,6 @@ function getData() {
   .then(function(response) {
     console.log("Done!");
     osrsItems = response.getBody();
-    console.log(Object.keys(osrsItems).length);
     localStorage.removeItem("osrs-items");
     localStorage.setItem("osrs-items", JSON.stringify(osrsItems));
     
@@ -166,6 +168,8 @@ function errorMessage(message, title, description) {
   .setColor("ff0000")
   .setTitle(title)
   .setDescription(description)
+  .setTimestamp()
+  .setFooter("Created by Yerti")
   )
 }
 
