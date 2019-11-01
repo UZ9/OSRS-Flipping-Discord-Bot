@@ -115,7 +115,6 @@ client.on("message", async message => {
       
     }
 
-    console.log(`Found ${count} items`)
 
     if (tempItems.length < 5) {
       for (var i = 0; i < tempItems.length - 1; i++) {
@@ -129,7 +128,6 @@ client.on("message", async message => {
           i--;
         } else {
           items[i] = newItem;
-          console.log(items[i].name + ": " + items[i].buy_average + ":" + items[i].sell_average);
         }
       }
     }
