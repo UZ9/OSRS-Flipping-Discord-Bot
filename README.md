@@ -7,3 +7,11 @@ Note: NodeJS needs to be installed as well as Requestify and dataStorage
 2. Go to the Discord Developer Panel and generate a token for your bot.
 3. Replace the token in config.json with your own token.
 4. Run the bot by doing "node index.js"
+
+# TODO
+[ ] Redo command setup to be handled with multiple classes 
+[x] Add optional max and price parameters 
+[ ] Finish README
+[ ] Add optional notifications for an item 
+[ ] Combine both RS APIs into one instead of separate (fix inconsistencies)
+[ ] Format messages 
