@@ -115,12 +115,15 @@ client.on("message", async message => {
       
     }
 
-  )
+    console.log(`Found ${count} items`)
 
-    for (var i = 0; i < tempItems.length <= 5 ? tempItems.length : 5; i++) {
-      if (items.length <= 5) {
-        items[i] = tempItems[i];
-      } else {
+    if (tempItems.length < 5) {
+      for (var i = 0; i < tempItems.length - 1; i++) {
+          items[i] = tempItems[i];
+      }
+    } else {
+      for (var i = 0; i < 5; i++) {
+
         var newItem = tempItems[Math.floor(Math.random() * tempItems.length)];
         if (items.includes(newItem)) {
           i--;
@@ -129,11 +132,11 @@ client.on("message", async message => {
           console.log(items[i].name + ": " + items[i].buy_average + ":" + items[i].sell_average);
         }
       }
-
-    
     }
 
-    console.log("Found " + count + " total items.")
+
+
+    
 
     var itemList = "<name> (id) : <margin> \n\n";
     if (items.length == 0) {
@@ -158,7 +161,7 @@ getData();
 setInterval(getData, 300000)
 function getData() {
   console.log("Retrieving data...")
-  request.get('https://rsbuddy.com/exchange/summary.json')
+  request.get('https://storage.googleapis.com/osb-exchange/summary.json')
   .then(function(response) {
     console.log("Done!");
     osrsItems = response.getBody();
