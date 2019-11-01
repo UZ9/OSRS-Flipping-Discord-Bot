@@ -19,7 +19,7 @@ client.on("ready", () => {
 
   console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
 
-  client.user.setActivity(`Flipping an' Dippin`);
+  client.user.setActivity(`Flippin an' Dippin`);
 });
 
 client.on("guildCreate", guild => {
@@ -79,10 +79,11 @@ client.on("message", async message => {
 
   if (command === "flip") {
     if (args.length == 0) {
-      errorMessage(message, ":x: Too few arguments", "Usage: ++flip <min-margin> *<max-margin>\n\n* *max margin is optional*")
+      errorMessage(message, ":x: Too few arguments", "Usage: ++flip <min-margin> *(max-margin) (price)")
       return;
-    } else if (args.length > 2) {
-      errorMessage(message, ":x: Too many arguments ", "Usage: ++flip <min-margin> <max-margin>\n\n* *max margin is optional*")
+    } else if (args.length > 3) {
+      errorMessage(message, ":x: Too many arguments ", "Usage: ++flip <min-margin> (max-margin) (price)")
+      return;
     }
     var tempItems = [];
     var items = [];
@@ -92,15 +93,21 @@ client.on("message", async message => {
     for (item in values) {
       item = values[item];
       var margin = item.sell_average - item.buy_average;
+
       if (args.length == 1) {
         if (margin > args[0] && item.sell_average != 0 && item.buy_average != 0) {
           count++;
           tempItems.push(item);
         }
       } else if (args.length == 2) {
+          if (args.length == 3) {
+            if (margin > args[0] && margin < args[1] && item.sell_average != 0 && item.buy_average != 0 && item.buy_average > args[2]);
+          }
+
           if (margin > args[0] && margin < args[1] && item.sell_average != 0 && item.buy_average != 0) {
             count++;
             tempItems.push(item);
+          
         } 
       }
 
@@ -108,24 +115,40 @@ client.on("message", async message => {
       
     }
 
-    for (var i = 0; i < 5; i++) {
-      var newItem = tempItems[Math.floor(Math.random() * tempItems.length)];
-      if (items.includes(newItem)) {
-        i--;
+  )
+
+    for (var i = 0; i < tempItems.length <= 5 ? tempItems.length : 5; i++) {
+      if (items.length <= 5) {
+        items[i] = tempItems[i];
       } else {
-        items[i] = newItem;
-        console.log(items[i].name + ": " + items[i].buy_average + ":" + items[i].sell_average);
+        var newItem = tempItems[Math.floor(Math.random() * tempItems.length)];
+        if (items.includes(newItem)) {
+          i--;
+        } else {
+          items[i] = newItem;
+          console.log(items[i].name + ": " + items[i].buy_average + ":" + items[i].sell_average);
+        }
       }
+
     
     }
 
+    console.log("Found " + count + " total items.")
+
     var itemList = "<name> (id) : <margin> \n\n";
+    if (items.length == 0) {
+      errorMessage(message, ":x: No items found", "No items were found under that query. Please try with a greater scope.");
+      return;
+    }
+
+    console.log(items.length);
+
     for (var i = 0; i < items.length; i++) {
       itemList += "**" + items[i].name + " (" + items[i].id + "):** " + (items[i].sell_average - items[i].buy_average) + "\n\n";
     }
 
     successMessage(message, "Flips", itemList);
-    console.log("Found " + count + " total items.")
+    
 
 
   }
