@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const utils = require ("../index.js");
 
-exports.run = function(client, message, args, levelStorage) {
+exports.run = function(client, message, args) {
     if (args.length > 0) {
         request.get('https://storage.googleapis.com/osb-exchange/item/' + args[0] + '.json') 
         .then(function(response) {
