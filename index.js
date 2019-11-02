@@ -3,6 +3,10 @@ const Discord = require("discord.js");
 
 const request = require('requestify');
 
+const fs = require('fs');
+
+const Enmap = require("enmap");
+
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('scratch');
 
@@ -47,34 +51,6 @@ client.on("message", async message => {
   if(command === "ping") {
     const m = await message.channel.send("Ping?");
     m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
-  }
-
-  if (command === "lookup") {
-    if (args.length > 0) {
-      request.get('https://storage.googleapis.com/osb-exchange/item/' + args[0] + '.json') 
-      .then(function(response) {
-        console.log("found response")
-        var target = response.getBody();
-        console.log("Bonk");
-        successMessage(message, "Data for ID " + args[0] + ": ", 
-        "**Name:** " + target.name + "\n\n" +
-        "**Members:** " + (target.members === true ? "Yes" : "No") + "\n\n"  + 
-        "**Buy Average:** " + numberWithCommas(parseInt(target.buy_average)) + " (" + nFormatter(parseInt(target.buy_average)) + ") gp\n\n"  + 
-        "**Sell Average:** " + numberWithCommas(parseInt(target.sell_average)) + " (" + nFormatter(parseInt(target.sell_average)) + ") gp\n\n"  +  
-        "**Overall Average:** " + numberWithCommas(parseInt(target.overall_average)) + " (" + nFormatter(parseInt(target.overall_average)) + ") gp\n\n" + 
-        "**Potential Profit:** " + (target.sell_average - target.buy_average) + " gp\n" 
-        );
-      })
-      .fail(function(response) {
-        errorMessage(message, ":x: " + response.getCode(), "Incorrect OSRS Item ID");
-      });
-
-
-    } else {
-      errorMessage(message, ":x: Too few arguments", "Usage: ++lookup <id>");
-      
-    }
-
   }
 
   if (command === "flip") {
@@ -154,6 +130,10 @@ client.on("message", async message => {
 
   }
 
+  if (command == "tanning") {
+
+  }
+
 });
 getData();
 setInterval(getData, 300000)
@@ -174,45 +154,83 @@ function getData() {
 }
 
 
+client.commands = new Enmap();
+
+fs.readdir("./commands/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith(".js")) return;
+      let props = require(`./commands/${file}`);
+      let commandName = file.split(".")[0];
+      if (commandName != "info") {
+        client.commands.set(commandName, props);
+       } 
+      
+    });
+  });
+
+  fs.readdir("./events/", (err, files) => {
+    if (err) return console.error(err);
+
+    files.forEach(file => {
+       const event = require("./events/" + file)
+       let eventName = file.split(".")[0];
+       if (eventName != "info") {
+        client.on(eventName, event.bind(null, client));
+       } 
+       
+    
+    });
+});
+
+
+
 
 client.login(config.token);
 
-function successMessage(message, title, description) {
-  message.channel.send(new Discord.RichEmbed()
-  .setColor("#3895D3")
-  .setTitle(title)
-  .setDescription(description)
-  .setTimestamp()
-  .setFooter("Created by Yerti")
-  )
+module.exports = {
+  successMessage: function(message, title, description) {
+    message.channel.send(new Discord.RichEmbed()
+    .setColor("#3895D3")
+    .setTitle(title)
+    .setDescription(description)
+    .setTimestamp()
+    .setFooter("Created by Yerti")
+    )
+  },
+  
+  errorMessage: function(message, title, description) {
+    message.channel.send(new Discord.RichEmbed()
+    .setColor("ff0000")
+    .setTitle(title)
+    .setDescription(description)
+    .setTimestamp()
+    .setFooter("Created by Yerti")
+    )
+  },
+
+  nFormatter: function(num) {
+    if (num >= 1000000000) {
+       return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+    }
+    if (num >= 1000000) {
+       return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    }
+    if (num >= 1000) {
+       return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return num;
+  },
+
+  numberWithCommas: function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  
+  
 }
 
-function errorMessage(message, title, description) {
-  message.channel.send(new Discord.RichEmbed()
-  .setColor("ff0000")
-  .setTitle(title)
-  .setDescription(description)
-  .setTimestamp()
-  .setFooter("Created by Yerti")
-  )
-}
-
-function nFormatter(num) {
-  if (num >= 1000000000) {
-     return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
-  }
-  if (num >= 1000000) {
-     return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-  }
-  if (num >= 1000) {
-     return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-  }
-  return num;
-}
 
 
 function filterByID(jsonObject, id) {return jsonObject.filter(function(jsonObject) {return (jsonObject['id'] == id);})[0];}
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
