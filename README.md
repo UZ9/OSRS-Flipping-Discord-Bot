@@ -9,9 +9,12 @@ Note: NodeJS needs to be installed as well as Requestify and dataStorage
 4. Run the bot by doing "node index.js"
 
 # TODO
-- [ ] Redo command setup to be handled with multiple classes 
+- [x] Redo command setup to be handled with multiple classes 
 - [x] Add optional max and price parameters 
 - [ ] Finish README
 - [ ] Add optional notifications for an item 
 - [ ] Combine both RS APIs into one instead of separate (fix inconsistencies)
 - [ ] Format messages 
+- [ ] Add High Alch options 
+- [ ] Pull graphs from runescape's API <optional>
+- [ ] Add a 'builder' type command parameter, ie ++flip price:50 margin-min:3 margin-max: 9
