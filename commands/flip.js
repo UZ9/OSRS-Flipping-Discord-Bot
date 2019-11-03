@@ -8,14 +8,39 @@ const utils = require ("../index.js");
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('scratch');
 
+var minMargin = -1;
+var maxMargin = -1;
+var maxPrice = -1;
+var members = true;
+var conditionList = [];
+
 exports.run = function(client, message, args) {
-    if (args.length == 0) {
-        utils.errorMessage(message, ":x: Too few arguments", "Usage: ++flip <min-margin> *(max-margin) (price)")
-        return;
-      } else if (args.length > 3) {
-        utils.errorMessage(message, ":x: Too many arguments ", "Usage: ++flip <min-margin> (max-margin) (price)")
-        return;
+
+      for (var arg of args) {
+        console.log(`Arg: ${arg}`);
+
+
+        arg = arg.toLowerCase();
+        if (!arg.includes(":")) continue;
+        if (arg.startsWith("min-margin")) {
+          minMargin = parseInt(arg.split(":")[1]);
+        }
+
+        if (arg.startsWith("max-margin")) {
+          maxMargin = parseInt(arg.split(":")[1]);
+        }
+
+        if (arg.startsWith("price")) {
+          console.log("1");
+          maxPrice = parseInt(arg.split(":")[1]);
+        }
+
+        if (arg.startsWith("members")) {
+          members = arg.split(":")[1] === "true" ? true : false;
+        }
       }
+
+
       var tempItems = [];
       var items = [];
       var count = 0;
@@ -24,27 +49,37 @@ exports.run = function(client, message, args) {
       for (item in values) {
         item = values[item];
         var margin = item.sell_average - item.buy_average;
-  
-        if (args.length == 1) {
-          if (margin > args[0] && item.sell_average != 0 && item.buy_average != 0) {
-            count++;
-            tempItems.push(item);
-          }
-        } else if (args.length == 2) {
-            if (args.length == 3) {
-              if (margin > args[0] && margin < args[1] && item.sell_average != 0 && item.buy_average != 0 && item.buy_average > args[2]);
-            }
-  
-            if (margin > args[0] && margin < args[1] && item.sell_average != 0 && item.buy_average != 0) {
-              count++;
-              tempItems.push(item);
-            
-          } 
+        conditionList = [];
+
+        conditionList.push(isActiveItem);
+
+        
+        if (minMargin != -1) {
+          conditionList.push(hasMinMargin);
         }
-  
+
+        if (maxMargin != -1) {
+          conditionList.push(hasMaxMargin);
+        }
+
+        if (maxPrice != -1) {
+          conditionList.push(hasMaxPrice);
+        }
+
+        if (members === false) {
+          conditionList.push(isFreeToPlay);
+        }
+
+        if (checkItem(item, conditionList)) {
+          count++;
+          tempItems.push(item);
+        } 
+    
   
         
       }
+
+      //console.log(`Item Count: ${tempItems.length}`)
   
   
       if (tempItems.length < 5) {
@@ -73,13 +108,46 @@ exports.run = function(client, message, args) {
         return;
       }
   
-      console.log(items.length);
+      console.log(`Count: ${count}`);
   
       for (var i = 0; i < items.length; i++) {
         itemList += "**" + items[i].name + " (" + items[i].id + "):** " + (items[i].sell_average - items[i].buy_average) + "\n\n";
       }
   
       utils.successMessage(message, "Flips", itemList);
+
       
   
 }
+
+function isActiveItem(item) {
+  return item.sell_average != 0 && item.buy_average != 0;
+}
+
+function hasMinMargin(item) {
+  return item.sell_average - item.buy_average > minMargin; 
+}
+
+function hasMaxMargin(item) {
+  return item.sell_average - item.buy_average < maxMargin;
+}
+
+function hasMaxPrice(item) {
+  return item.buy_average < maxPrice;
+}
+
+function isFreeToPlay(item) {
+  return item.members === false;
+}
+
+
+function checkItem(item, conditions) {
+  for (condition of conditions) {
+    if (!condition(item)) {
+      return false;
+    } 
+  }
+
+  return true;
+}
+
