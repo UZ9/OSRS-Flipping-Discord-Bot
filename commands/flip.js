@@ -74,6 +74,8 @@ exports.run = function(client, message, args) {
           count++;
           tempItems.push(item);
         } 
+
+        console.log(conditionList.length);
     
   
         
@@ -102,7 +104,7 @@ exports.run = function(client, message, args) {
   
       
   
-      var itemList = "<name> (id) : <margin> \n\n";
+      var itemList = "`<name> (id) : <margin> \n\n`";
       if (items.length == 0) {
         utils.errorMessage(message, ":x: No items found", "No items were found under that query. Please try with a greater scope.");
         return;
@@ -115,6 +117,12 @@ exports.run = function(client, message, args) {
       }
   
       utils.successMessage(message, "Flips", itemList);
+
+      //Reset variables
+      minMargin = -1;
+      maxMargin = -1;
+      maxPrice = -1;
+      members = true;
 
       
   
