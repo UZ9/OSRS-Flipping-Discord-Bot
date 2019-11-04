@@ -4,6 +4,7 @@ const request = require('requestify');
 const path = require("path");
 const fs = require("fs");
 const utils = require ("../index.js");
+const table = require('text-table');
 
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('scratch');
@@ -104,19 +105,30 @@ exports.run = function(client, message, args) {
   
       
   
-      var itemList = "`<name> (id) : <margin> \n\n`";
+      var itemList = [];
       if (items.length == 0) {
         utils.errorMessage(message, ":x: No items found", "No items were found under that query. Please try with a greater scope.");
         return;
       }
   
       console.log(`Count: ${count}`);
+
+      itemList.push(["Name", "ID", "Buy Avg", "Sell Avg", "Margin"]);
   
       for (var i = 0; i < items.length; i++) {
-        itemList += "**" + items[i].name + " (" + items[i].id + "):** " + (items[i].sell_average - items[i].buy_average) + "\n\n";
+        
+        itemList.push([items[i].name, items[i].id, items[i].buy_average, items[i].sell_average, (items[i].sell_average - items[i].buy_average)]);
       }
-  
-      utils.successMessage(message, "Flips", itemList);
+
+      var t = table(itemList);
+
+      var labels = t.split("\n")[0];
+      t = t.split("\n").slice(1).join("\n");
+
+      var msg = "```" + (labels + "\n-----------------------------------------------------\n" + t).toString() + "```";
+      
+
+      utils.successMessage(message, "Flips", msg);
 
       //Reset variables
       minMargin = -1;
