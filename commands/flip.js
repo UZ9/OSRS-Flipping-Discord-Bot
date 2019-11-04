@@ -125,7 +125,7 @@ exports.run = function(client, message, args) {
       var labels = t.split("\n")[0];
       t = t.split("\n").slice(1).join("\n");
 
-      var msg = "```" + (labels + "\n-----------------------------------------------------\n" + t).toString() + "```";
+      var msg = "```" + labels + "\n-----------------------------------------------------\n" + t + "```";
       
 
       utils.successMessage(message, "Flips", msg);
@@ -141,7 +141,7 @@ exports.run = function(client, message, args) {
 }
 
 function isActiveItem(item) {
-  return item.sell_average != 0 && item.buy_average != 0;
+  return item.sell_average != 0 && item.buy_average != 0 && (item.sell_average - item.buy_average) > 0;
 }
 
 function hasMinMargin(item) {
