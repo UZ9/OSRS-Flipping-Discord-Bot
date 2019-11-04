@@ -22,9 +22,11 @@ Note: NodeJS needs to be installed as well as Requestify and dataStorage
 # Commands
 `prefix` - ++
 
+
 `lookup <id>` - Looks up a Runescape ID and fetches the margin, buy and sell prices, as well as other information. This is generally used after doing the flip command if more information is needed.
 
 Example: `lookup 314`
+
 
 `flips` - Queries the entire database for suitable flipping profits. Parameters:
 - min-margin
@@ -34,6 +36,7 @@ Example: `lookup 314`
 
 Example: `flips min-margin:30 max-margin:40`
 
+
 `stats <player name>` - Looks up the rankings and hiscores for a player
 
-Example: `Lookup Wacker123`
+Example: `stats Wacker123`
