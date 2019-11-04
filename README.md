@@ -34,6 +34,6 @@ Example: `lookup 314`
 
 Example: `flips min-margin:30 max-margin:40`
 
-`stats <player name> - Looks up the rankings and hiscores for a player`
+`stats <player name>` - Looks up the rankings and hiscores for a player
 
 Example: `Lookup Wacker123`
