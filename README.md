@@ -32,4 +32,4 @@ Example: `lookup 314`
 - price
 - members
 
-Example: `flip min-margin:30 max-margin:40`
+Example: `flips min-margin:30 max-margin:40`
