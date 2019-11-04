@@ -18,7 +18,6 @@ var conditionList = [];
 exports.run = function(client, message, args) {
 
       for (var arg of args) {
-        console.log(`Arg: ${arg}`);
 
 
         arg = arg.toLowerCase();
@@ -32,7 +31,6 @@ exports.run = function(client, message, args) {
         }
 
         if (arg.startsWith("price")) {
-          console.log("1");
           maxPrice = parseInt(arg.split(":")[1]);
         }
 
@@ -76,15 +74,10 @@ exports.run = function(client, message, args) {
           tempItems.push(item);
         } 
 
-        console.log(conditionList.length);
-    
-  
+
         
       }
 
-      //console.log(`Item Count: ${tempItems.length}`)
-  
-  
       if (tempItems.length < 5) {
         for (var i = 0; i < tempItems.length - 1; i++) {
             items[i] = tempItems[i];
@@ -110,8 +103,6 @@ exports.run = function(client, message, args) {
         utils.errorMessage(message, ":x: No items found", "No items were found under that query. Please try with a greater scope.");
         return;
       }
-  
-      console.log(`Count: ${count}`);
 
       itemList.push(["Name", "ID", "Buy Avg", "Sell Avg", "Margin"]);
   
