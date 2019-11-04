@@ -26,7 +26,7 @@ Note: NodeJS needs to be installed as well as Requestify and dataStorage
 
 Example: `lookup 314`
 
-`flip` - Queries the entire database for suitable flipping profits. Parameters:
+`flips` - Queries the entire database for suitable flipping profits. Parameters:
 - min-margin
 - max-margin
 - price
