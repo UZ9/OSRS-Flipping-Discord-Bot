@@ -22,36 +22,11 @@ Note: NodeJS needs to be installed as well as Requestify and dataStorage
 # Commands
 `prefix` - ++
 
-
-`lookup <id>` - Looks up a Runescape ID and fetches the margin, buy and sell prices, as well as other information. This is generally used after doing the flip command if more information is needed.
-
-Example: `lookup 314`
-
-
-`flips` - Queries the entire database for suitable flipping profits. Parameters:
-- min-margin
-- max-margin
-- price
-- members
-
-Example: `flips min-margin:30 max-margin:40`
-
-
-`stats <player name>` - Looks up the rankings and hiscores for a player
-
-Example: `stats Wacker123`
-
-
-`savedflips` - Lists your personal saved lists. These are added by the commands below.
-
-Example: `savedflips`
-
-
-`addflip <id>` - Adds an item ID to your personal flip list.
-
-Example: `addflip 314`
-
-
-`removeflip <id>` - Removes an item ID from your personal flip list.
-
-Example: `removeflip 314`
+| Name           | Description                                                                                                                                                                                                                                                                                                                                | Usage              |
+|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
+| **lookup**     | Looks up an item and its GE values                                                                                                                                                                                                                                                                                                         | lookup <id>        |
+| **flips**      | Queries the OSRS items for suitable flipping profits. Uses a builder-like command structure. Parameters (All optional): `max-margin`, `min-margin`, `price`, `members` | flips <parameters> |
+| **stats**      | Looks up the rankings and hiscores for a player. The command currently only supports normal  osrs players, but soon will be compatible with IM, HCIM, and other character types.                                                                                                                                                           | stats <name>       |
+| **savedflips** | Lists your personal saved lists. These are changed by `addflip` and `removeflip`.                                                                                                                                                                                                                                                          | savedflips         |
+| **addflip**    | Adds an item ID to your personal flip list.                                                                                                                                                                                                                                                                                                | addflip <id>       |
+| **removeflip** | Removes an item ID from your personal flip list.            
