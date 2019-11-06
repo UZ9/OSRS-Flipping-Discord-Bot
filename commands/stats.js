@@ -31,7 +31,7 @@ exports.run = function(client, message, args) {
             var labels = t.split("\n")[0];
             t = t.split("\n").slice(1).join("\n");
       
-            var msg = "```" + labels + "\n----------------------------------------------\n" + t + "```";
+            var msg = "```" + labels + "\n------------------------------------------\n" + t + "```";
 
             utils.successMessage(message, "Stats for " + args.join(" ") + ":", msg);
 

@@ -40,10 +40,8 @@ getData();
 setInterval(getData, 300000);
 
 function getData() {
-  console.log("Retrieving data...")
   request.get('https://storage.googleapis.com/osb-exchange/summary.json')
   .then(function(response) {
-    console.log("Done!");
     osrsItems = response.getBody();
     localStorage.removeItem("osrs-items");
     localStorage.setItem("osrs-items", JSON.stringify(osrsItems));
