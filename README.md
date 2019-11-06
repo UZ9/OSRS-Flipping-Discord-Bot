@@ -40,3 +40,18 @@ Example: `flips min-margin:30 max-margin:40`
 `stats <player name>` - Looks up the rankings and hiscores for a player
 
 Example: `stats Wacker123`
+
+
+`savedflips` - Lists your personal saved lists. These are added by the commands below.
+
+Example: `savedflips`
+
+
+`addflip <id>` - Adds an item ID to your personal flip list.
+
+Example: `addflip 314`
+
+
+`removeflip <id>` - Removes an item ID from your personal flip list.
+
+Example: `removeflip 314`
