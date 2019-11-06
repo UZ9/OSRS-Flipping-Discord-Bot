@@ -5,8 +5,9 @@ An OSRS discord bot used for doing flips on the Grand Exchange.
 Note: NodeJS needs to be installed as well as Requestify and dataStorage
 1. Clone the repository and extract the files somewhere on your computer.
 2. Go to the Discord Developer Panel and generate a token for your bot.
-3. Replace the token in config.json with your own token.
-4. Run the bot by doing "node index.js"
+3. Replace the token in `config.json` with your own token.
+4. (Optional) Change the 'prefix' value in `config.json` with a new prefix if needed. 
+5. Run the bot by doing `node index.js`
 
 # TODO
 - [x] Redo command setup to be handled with multiple classes 
