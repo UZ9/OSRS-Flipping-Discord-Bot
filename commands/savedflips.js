@@ -48,7 +48,7 @@ exports.run = async function(client, message, args) {
 
         var labels = t.split("\n")[0];
         t = t.split("\n").slice(1).join("\n");
-        var e = "```" + labels + "\n--------------------------------------------------\n" + t + "```";
+        var e = "```" + labels + "\n----------------------------------------------------\n" + t + "```";
         utils.successMessage(message, `Saved flips for ${message.guild.members.get(message.author.id).displayName}`, e);
     } else {
         utils.errorMessage(message, `:x: Couldn't find any flips for ${message.guild.members.get(message.author.id).displayName}`, "Are you sure you saved any flips?");
