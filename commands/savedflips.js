@@ -16,8 +16,6 @@ exports.run = async function(client, message, args) {
         localStorage.setItem("saved-flips", {});
         return;
     }
-    if (saved[message.author.id]) console.log("Good1");
-    if (saved[message.author.id]['items']) console.log("good2");
 
 
     if (saved[message.author.id] && saved[message.author.id]['items']) {
@@ -29,9 +27,7 @@ exports.run = async function(client, message, args) {
         for (var id of saved[message.author.id]['items']) {
             await request.get('https://storage.googleapis.com/osb-exchange/item/' + id + '.json') 
             .then(function(response) {
-              console.log("found response")
               var target = response.getBody();
-              console.log("Bonk");
               msg.push([
               target.name,
               target.id, 
@@ -40,7 +36,7 @@ exports.run = async function(client, message, args) {
               utils.numberWithCommas(parseInt(target.sell_average)),
               (target.sell_average - target.buy_average)
               ])
-              console.log(msg);
+
             })
 
             .fail(function(response) {
@@ -49,7 +45,7 @@ exports.run = async function(client, message, args) {
             //msg += id + "\n";
         }
         var t = table(msg);
-        console.log(t);
+
         var labels = t.split("\n")[0];
         t = t.split("\n").slice(1).join("\n");
         var e = "```" + labels + "\n--------------------------------------------------\n" + t + "```";

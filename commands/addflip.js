@@ -10,7 +10,6 @@ exports.run = async function(client, message, args) {
 
         }
         items = JSON.parse(localStorage.getItem("saved-flips"));
-        console.log(JSON.stringify(items));
         if (!items) {
             localStorage.setItem("saved-flips", {});
         } else {
