@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const utils = require("../index.js");
+const utils = require("../../index.js");
 const fs = require("fs");
 const request = require("requestify");
 

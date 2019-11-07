@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const request = require('requestify');
 const path = require("path");
 const fs = require("fs");
-const utils = require ("../index.js");
+const utils = require ("../../index.js");
 const table = require('text-table');
 
 var LocalStorage = require('node-localstorage').LocalStorage;

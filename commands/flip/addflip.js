@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const utils = require("../index.js");
+const utils = require("../../index.js");
 
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('scratch');

@@ -62,12 +62,47 @@ fs.readdir("./commands/", (err, files) => {
       if (!file.endsWith(".js")) return;
       let props = require(`./commands/${file}`);
       let commandName = file.split(".")[0];
-      if (commandName != "info") {
-        client.commands.set(commandName, props);
-       } 
+      client.commands.set(commandName, props);
       
     });
   });
+
+  fs.readdir("./commands/stats/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith(".js")) return;
+      let props = require(`./commands/stats/${file}`);
+      let commandName = file.split(".")[0];
+      client.commands.set(commandName, props);
+
+      
+    });
+  });
+
+  fs.readdir("./commands/flip/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith(".js")) return;
+      let props = require(`./commands/flip/${file}`);
+      let commandName = file.split(".")[0];
+      client.commands.set(commandName, props);
+
+      
+    });
+  });
+
+  fs.readdir("./commands/utils/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith(".js")) return;
+      let props = require(`./commands/utils/${file}`);
+      let commandName = file.split(".")[0];
+      client.commands.set(commandName, props);
+
+      
+    });
+  });
+
 
   fs.readdir("./events/", (err, files) => {
     if (err) return console.error(err);

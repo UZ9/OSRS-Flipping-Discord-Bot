@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 const request = require('requestify');
 const path = require("path");
 const fs = require("fs");
-const utils = require ("../index.js");
+const utils = require ("../../index.js");
 const {constants, hiscores} = require("osrs-api");
 const table = require('text-table');
 
@@ -18,7 +18,7 @@ exports.run = function(client, message, args) {
     outputArray.push(["Name", "Rank", "Level", "XP"])
 
     if (args.length > 0) {
-        hiscores.getPlayer({ name: args.join(" "), type: constants.playerTypes.hardcoreIronman }).then(function(response) {
+        hiscores.getPlayer({ name: args.join(" "), type: constants.playerTypes.ultimateIronman }).then(function(response) {
             for (value in response) {
                 vValue = response[value];
                 if (vValue.level != null) {
