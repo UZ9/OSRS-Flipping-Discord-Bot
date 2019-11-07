@@ -14,12 +14,33 @@ exports.run = async function(client, message, args) {
         return;
     }
 
+
+    if (parseInt(args[1]) != args[1]) {
+        utils.errorMessage(message, ":x: Error", "The second parameter needs to be an integer.");
+        return;
+    }
+
+    if (!localStorage.getItem("user-data")) {
+        localStorage.setItem("user-data", "{}");
+        utils.errorMessage(message, ":x: Error", "Please set your runescape username using `++setrsn`.");
+        return;
+    }
+
+    if (!JSON.parse(localStorage.getItem("user-data"))[message.author.id] || !JSON.parse(localStorage.getItem("user-data"))[message.author.id].rsn) {
+        utils.errorMessage(message, ":x: Error", "Please set your runescape username using `++setrsn`.");
+        return;
+    }
+
     hiscores.getPlayer({ name: JSON.parse(localStorage.getItem("user-data"))[message.author.id].rsn, type: constants.playerTypes.ironman }).then(function(response) {
         for (value in response) {
             var vValue = response[value];
             if (value.toLowerCase() === args[0]) {
                 var xp = vValue.experience;
                 var target = experienceForLevel(parseInt(args[1]));
+                if (target - xp <= 0) {
+                    utils.errorMessage(message, ":x: Error", "You've already reached this level.");
+                    return;
+                }
                 utils.successMessage(message, "XP to level " + args[1] + ":", 
                 `**Current Level:** ${vValue.level}\n\n` +
                 `**Target Level:** ${args[1]}\n\n` +
@@ -27,6 +48,7 @@ exports.run = async function(client, message, args) {
                 `**Target XP:** ${utils.numberWithCommas(experienceForLevel(parseInt(args[1])))} xp\n\n` + 
                 `**Needed XP:** ${utils.numberWithCommas(target - xp)} xp` 
                 )
+                return;
                 
                 
 
@@ -34,6 +56,8 @@ exports.run = async function(client, message, args) {
             }
             
         }
+
+        utils.errorMessage(message, ":x: Error", "The specified skill doesn't exist.")
     });
 
 
