@@ -56,6 +56,8 @@ function getData() {
 
 client.commands = new Enmap();
 
+//TODO: Create a better way of adding nested classes instead of manually looping through every folder
+
 fs.readdir("./commands/", (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
@@ -96,6 +98,18 @@ fs.readdir("./commands/", (err, files) => {
     files.forEach(file => {
       if (!file.endsWith(".js")) return;
       let props = require(`./commands/utils/${file}`);
+      let commandName = file.split(".")[0];
+      client.commands.set(commandName, props);
+
+      
+    });
+  });
+
+  fs.readdir("./commands/skills/", (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith(".js")) return;
+      let props = require(`./commands/skills/${file}`);
       let commandName = file.split(".")[0];
       client.commands.set(commandName, props);
 
