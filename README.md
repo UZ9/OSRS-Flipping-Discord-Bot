@@ -37,11 +37,18 @@ Once all of these are installed proceed to the Bot Installation.
 # Commands
 `prefix` - ++
 
-| Name           | Description                                                                                                                                                                                                                                                                                                                                | Usage              |
-|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|
-| **lookup**     | Looks up an item and its GE values                                                                                                                                                                                                                                                                                                         | lookup <id>        |
-| **flips**      | Queries the OSRS items for suitable flipping profits. Uses a builder-like command structure. Parameters (All optional): - `max-margin`: Limits the maximum for the margin - `min-margin`: Limits the minimum for the margin - `price`: Limits the maximum for the price - `members`: Toggles whether the items should be mixed or only F2P | flips <parameters> |
-| **stats**      | Looks up the rankings and hiscores for a player. The command currently only supports normal  osrs players, but soon will be compatible with IM, HCIM, and other character types.                                                                                                                                                           | stats <name>       |
-| **savedflips** | Lists your personal saved lists. These are changed by `addflip` and `removeflip`.                                                                                                                                                                                                                                                          | savedflips         |
-| **addflip**    | Adds an item ID to your personal flip list.                                                                                                                                                                                                                                                                                                | addflip <id>       |
-| **removeflip** | Removes an item ID from your personal flip list.                                                                                                                                                                                                                                                                                           | removeflip <id>    |
+**Name**|**Description**|**Usage**
+:-----:|:-----:|:-----:
+lookup|Looks up an item and its Grand Exchange flipping margins.|lookup [id]
+flips|Queries the OSRS items for suitable flipping profits. Usesa builder-like command structure. Parameters (All Optional): `max-margin`, `min-margin`, `price`, `members`.|flips [parameters]
+stats|Looks up the rankings and hiscores for a normal player. |stats [player-name]
+ironman|Looks up the ranking and hiscores for an ironman player.|stats [player-name]
+hcim|Looks up the ranking and highscores for a hardcore ironman player.|stats [player-name]
+uim|Looks up the ranking and highscores for an ultimate ironman player.|stats [player-name]
+deadman|Looks up the rankings and highscores for a deadman player.|stats [player-name]
+savedflips|Lists your personal saved flips. These are changed by the commands `addflip` and `removeflip`.|savedflips 
+addflip|Adds an item ID to your personal flip list.|addflip [item-id]
+removeflip|Removes an item ID from your personal flip list.|removeflip [item-id]
+setrsn|Binds your Runescape Username to your discord tag.|set-rsn [name]
+xptolevel|Calculates the xp to reach a specific level goal in a skill.|xptolevel [skill-name] [level]
+ping|Returns the API and bot latency.|ping
