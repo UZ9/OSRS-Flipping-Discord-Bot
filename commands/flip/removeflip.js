@@ -7,8 +7,9 @@ var localStorage = new LocalStorage('scratch');
 
 exports.run = async function(client, message, args) {
     if (args.length == 1) {
-        if (typeof args[0] == "number") {
-
+        if (isNaN(args[0])) {
+            utils.errorMessage(message, ":x: Error", "Your first argument needs to be an ID.");
+            return;
         }
         items = JSON.parse(localStorage.getItem("saved-flips"));
         if (!items) {
