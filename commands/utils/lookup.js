@@ -9,9 +9,7 @@ exports.run = function(client, message, args) {
     if (args.length > 0) {
         request.get('https://storage.googleapis.com/osb-exchange/item/' + args[0] + '.json') 
         .then(function(response) {
-          console.log("found response")
           var target = response.getBody();
-          console.log("Bonk");
           utils.successMessage(message, "Data for ID " + args[0] + ": ", 
           "**Name:** " + target.name + "\n\n" +
           "**Members:** " + (target.members === true ? "Yes" : "No") + "\n\n"  + 

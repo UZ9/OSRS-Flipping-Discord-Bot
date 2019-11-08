@@ -48,7 +48,7 @@ function getData() {
     
   })
   .fail(function(response) {
-    console.log("Failed. " + response.getCode());
+    console.log("Failed data request. Error " + response.getCode());
   });
   
 }
