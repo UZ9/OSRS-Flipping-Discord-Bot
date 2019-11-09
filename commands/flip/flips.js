@@ -132,7 +132,8 @@ exports.run = function(client, message, args) {
 }
 
 function isActiveItem(item) {
-  return item.sell_average != 0 && item.buy_average != 0 && (item.sell_average - item.buy_average) > 0;
+  
+  return item.sell_average != 0 && item.buy_average != 0 && (item.sell_average - item.buy_average) > 0 && item.overall_quantity > 100;
 }
 
 function hasMinMargin(item) {
