@@ -1,10 +1,6 @@
 # OSRS-Flipping-Discord-Bot
 An OSRS discord bot used for doing flips on the Grand Exchange. 
 
-# Notice
-I'm now hosting this bot almost 24/7! Get it by using this link:
-https://discordapp.com/api/oauth2/authorize?client_id=606979303800045586&permissions=8&scope=bot
-
 # Installation Prerequisites 
 If you haven't installed Node.js yet, go through the following steps. If you've already done it, 
 make sure you have the imports listed on step <n>
