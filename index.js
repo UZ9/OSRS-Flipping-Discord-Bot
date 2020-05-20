@@ -81,7 +81,6 @@ client.commands = new Enmap();
   registerFolder("./commands/flip/")
   registerFolder("./commands/utils/")
   registerFolder("./commands/skills/")
-  registerFolder("./commands/new-flip/")
 
 
   fs.readdir("./events/", (err, files) => {
