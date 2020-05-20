@@ -15,6 +15,7 @@ exports.run = async function(client, message, args) {
             localStorage.setItem("saved-flips", {});
         } else {
             if (!items[message.author.id]) items[message.author.id] = {};         
+        
             if (!items[message.author.id]['items']) items[message.author.id]['items'] = [];
 
             if (items[message.author.id]['items'].includes(args[0])) {

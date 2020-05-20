@@ -36,8 +36,9 @@ client.on("guildDelete", guild => {
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
 });
 
-getData();
-setInterval(getData, 300000);
+
+getDBInfo();
+setInterval(getData, 350000)
 
 function getData() {
   request.get('https://storage.googleapis.com/osb-exchange/summary.json')
@@ -53,69 +54,34 @@ function getData() {
   
 }
 
+getDBInfo();
+setInterval(getDBInfo, 350000)
+function getDBInfo() {
+  request.get('https://www.osrsbox.com/osrsbox-db/items-summary.json')
+  .then(function(response) {
+    var osrsItems = response.getBody();
+    localStorage.removeItem("item-db");
+    localStorage.setItem("item-db", JSON.stringify(osrsItems));
+    //console.log(JSON.stringify(osrsItems));
+    
+  })
+  .fail(function(response) {
+    console.log("Failed data request. Error " + response.getCode());
+  });
+}
+
+
 
 client.commands = new Enmap();
 
 //TODO: Create a better way of adding nested classes instead of manually looping through every folder
 
-fs.readdir("./commands/", (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(file => {
-      if (!file.endsWith(".js")) return;
-      let props = require(`./commands/${file}`);
-      let commandName = file.split(".")[0];
-      client.commands.set(commandName, props);
-      
-    });
-  });
-
-  fs.readdir("./commands/stats/", (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(file => {
-      if (!file.endsWith(".js")) return;
-      let props = require(`./commands/stats/${file}`);
-      let commandName = file.split(".")[0];
-      client.commands.set(commandName, props);
-
-      
-    });
-  });
-
-  fs.readdir("./commands/flip/", (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(file => {
-      if (!file.endsWith(".js")) return;
-      let props = require(`./commands/flip/${file}`);
-      let commandName = file.split(".")[0];
-      client.commands.set(commandName, props);
-
-      
-    });
-  });
-
-  fs.readdir("./commands/utils/", (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(file => {
-      if (!file.endsWith(".js")) return;
-      let props = require(`./commands/utils/${file}`);
-      let commandName = file.split(".")[0];
-      client.commands.set(commandName, props);
-
-      
-    });
-  });
-
-  fs.readdir("./commands/skills/", (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(file => {
-      if (!file.endsWith(".js")) return;
-      let props = require(`./commands/skills/${file}`);
-      let commandName = file.split(".")[0];
-      client.commands.set(commandName, props);
-
-      
-    });
-  });
+  registerFolder("./commands/")
+  registerFolder("./commands/stats/")
+  registerFolder("./commands/flip/")
+  registerFolder("./commands/utils/")
+  registerFolder("./commands/skills/")
+  registerFolder("./commands/new-flip/")
 
 
   fs.readdir("./events/", (err, files) => {
@@ -142,6 +108,17 @@ module.exports = {
     message.channel.send(new Discord.RichEmbed()
     .setColor("#3895D3")
     .setTitle(title)
+    .setDescription(description)
+    .setTimestamp()
+    .setFooter("Created by Yerti")
+    )
+  },
+
+  runescapeInfoImage: function(message, title, description, icon, wikiurl) {
+    message.channel.send(new Discord.RichEmbed()
+    .setColor("#3895D3")
+    //.setTitle(title)
+    .setAuthor(title, icon, wikiurl)
     .setDescription(description)
     .setTimestamp()
     .setFooter("Created by Yerti")
@@ -183,3 +160,16 @@ module.exports = {
 
 function filterByID(jsonObject, id) {return jsonObject.filter(function(jsonObject) {return (jsonObject['id'] == id);})[0];}
 
+function registerFolder(name) {
+  fs.readdir(name, (err, files) => {
+    if (err) return console.error(err);
+    files.forEach(file => {
+      if (!file.endsWith(".js")) return;
+      let props = require(`${name}/${file}`);
+      let commandName = file.split(".")[0];
+      client.commands.set(commandName, props);
+
+      
+    });
+  });
+}
