@@ -24,15 +24,14 @@ Once all of these are installed proceed to the Bot Installation.
 5. Run the bot by doing `node index.js` while inside the folder.
 
 # TODO
-- [x] Redo command setup to be handled with multiple classes 
-- [x] Add optional max and price parameters 
 - [ ] Finish README
 - [ ] Add optional notifications for an item 
-- [x] Combine both RS APIs into one instead of separate (fix inconsistencies)
-- [x] Format messages 
 - [ ] Add High Alch options 
 - [ ] Pull graphs from runescape's API <optional>
-- [x] Add a 'builder' type command parameter, ie ++flip price:50 margin-min:3 margin-max: 9
+  
+  # Images
+![Protoflip Bot Results](https://i.imgur.com/zTdXdcT.png)
+![Stats Bot Results](https://i.imgur.com/GozzVNq.png)
 
 # Commands
 `prefix` - ++
@@ -40,7 +39,8 @@ Once all of these are installed proceed to the Bot Installation.
 **Name**|**Description**|**Usage**
 :-----:|:-----:|:-----:
 lookup|Looks up an item and its Grand Exchange flipping margins.|lookup [id]
-flips|Queries the OSRS items for suitable flipping profits. Usesa builder-like command structure. Parameters (All Optional): `max-margin`, `min-margin`, `price`, `members`.|flips [parameters]
+protoflip|New lookup system with a switched API. The original command will soon be replaced with this one. Now supports names!|protoflip [name]
+flips|Queries the OSRS items for suitable flipping profits. Uses a builder-like command structure. Parameters (All Optional): `max-margin`, `min-margin`, `price`, `members`.|flips [parameters]
 stats|Looks up the rankings and hiscores for a normal player. |stats [player-name]
 ironman|Looks up the ranking and hiscores for an ironman player.|stats [player-name]
 hcim|Looks up the ranking and highscores for a hardcore ironman player.|stats [player-name]
