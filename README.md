@@ -30,7 +30,7 @@ Once all of these are installed proceed to the Bot Installation.
 - [ ] Pull graphs from runescape's API <optional>
   
   # Images
-![Protoflip Bot Results](https://i.imgur.com/zTdXdcT.png)
+![Lookup Bot Results](https://i.imgur.com/zTdXdcT.png)
 ![Stats Bot Results](https://i.imgur.com/GozzVNq.png)
 
 # Commands
@@ -39,7 +39,6 @@ Once all of these are installed proceed to the Bot Installation.
 **Name**|**Description**|**Usage**
 :-----:|:-----:|:-----:
 lookup|Looks up an item and its Grand Exchange flipping margins.|lookup [id]
-protoflip|New lookup system with a switched API. The original command will soon be replaced with this one. Now supports names!|protoflip [name]
 flips|Queries the OSRS items for suitable flipping profits. Uses a builder-like command structure. Parameters (All Optional): `max-margin`, `min-margin`, `price`, `members`.|flips [parameters]
 stats|Looks up the rankings and hiscores for a normal player. |stats [player-name]
 ironman|Looks up the ranking and hiscores for an ironman player.|stats [player-name]
