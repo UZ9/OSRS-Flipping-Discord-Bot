@@ -7,13 +7,9 @@ make sure you have the imports listed on step <n>
   
 1. Go to [the Node.js website ](https://www.nodejs.org) and install the executable. Follow the instructions it provides. 
 2. To check if Node.js is installed, go into a command terminal and type `node -v`. This should return a version.
-3. In order to run the discord bot install the following modules by typing `npm install --save <module-name>`, where `module-name` is one of the modules below:
-  - requestify
-  - osrs-api
-  - node-localstorage
-  - Enmap
-  - discord.js
-  - text-table
+3. In order to run the discord bot install the needed modules by typing `npm install`. This should download all of the needed dependencies.
+
+
 Once all of these are installed proceed to the Bot Installation.
 
 # Bot Installation
